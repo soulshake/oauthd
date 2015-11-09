@@ -1,0 +1,14 @@
+redis:
+  image: "redis:2.8.17"
+  ports:
+    - 6379:6379
+
+oauthd:
+  image: "vinc/oauthd-instance"
+  links:
+    - redis:redis
+  environment:
+    - oauthd_host_url=http://127.0.0.1:6284
+  ports:
+    - 443:443
+    - 6284:6284

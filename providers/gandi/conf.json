@@ -1,0 +1,59 @@
+{
+    "name": "Gandi",
+    "desc": "Gandi provides domain names, cloud hosting and SSL certificates.",
+    "url": "https://id.gandi.net",
+    "oauth2": {
+        "authorize": {
+            "url": "/authorize",
+            "format": "url", // json?
+            "method": "get",
+            "query": {
+                "client_id": "{client_id}",
+                // "response_type": "code",
+                "scope": "{scope}",
+                "redirect_uri": "{{callback}}", // "{redirect_uri}" ?
+                "state": "{state}"
+            }
+        },
+        "access_token": {
+            "url": "/token",
+            "format": "application/x-www-form-urlencoded",
+            "method": "post",
+            "query": {
+                "grant_type": "{grant_type}",
+                "client_id": "{client_id}",
+                "client_secret": "{client_secret}",
+                "token": "{token}",
+                "code": "{code}"
+            },
+            "extra": ["scope"]  // + "code" ?
+        },
+        "request": {
+            "url": "api.gandi.net",
+            "headers": {
+                "Authorization": "OAuth {{token}}"
+            }
+        },
+        "parameters": {
+            "grant_type", "string",
+            "client_id": "string",
+            "client_secret": "string",
+            "token": "string",
+            "code": "string",
+            "scope": {
+                "values": {
+                    "account:email": "View user email address",
+                    "news": "View Gandi news and post comments",
+                    "dns": "Manage zone files",
+                },
+                "separator": ","
+            }
+            // lang?
+        },
+        "href": {
+            "keys": "/tokeninfo", // ? "the url to get all the API keys (secret key/public key)",
+            "docs": "url to view API docs",
+            "apps": "url to create/manage user's apps",
+            "provider": "https://www.gandi.net/"
+        } 
+    }
